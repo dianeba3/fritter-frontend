@@ -4,6 +4,9 @@ import FreetCollection from '../freet/collection';
 import UserCollection from './collection';
 import * as userValidator from '../user/middleware';
 import * as util from './util';
+import InteractionCollection from "../interaction/collection";
+import ProfileCollection from "../profile/collection";
+
 
 const router = express.Router();
 
@@ -159,12 +162,18 @@ router.delete(
     userValidator.isUserLoggedIn
   ],
   async (req: Request, res: Response) => {
-    const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
+    const userId = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
+    const freets = await FreetCollection.findAllByUserId(userId);
+    // delete following and following barrier !!!!
+    for (let i=0; i<freets.length; i++){
+      await InteractionCollection.deleteMany(freets[i]._id);
+    }
     await UserCollection.deleteOne(userId);
     await FreetCollection.deleteMany(userId);
+    await ProfileCollection.deleteOne(userId);
     req.session.userId = undefined;
     res.status(200).json({
-      message: 'Your account has been deleted successfully.'
+      message: "Your account has been deleted successfully.",
     });
   }
 );
