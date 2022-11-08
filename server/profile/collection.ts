@@ -43,6 +43,19 @@ class ProfileCollection {
   }
 
   /**
+   * Find a profile by userId (case insensitive).
+   *
+   * @param {string} userId - The userId of the profile to find
+   * @return {Promise<HydratedDocument<Profile>> | Promise<null>} - The user with the given userId, if any
+   */
+   static async findOnebyUsername(
+    userId: string
+  ): Promise<HydratedDocument<Profile>> {
+    const author = await UserCollection.findOneByUsername(userId);
+    return ProfileModel.findOne({ userId: author._id }).populate("userId");
+  }
+
+  /**
    * Get all the freets in the database
    *
    * @return {Promise<HydratedDocument<Profile>[]>} - An array of all of the freets

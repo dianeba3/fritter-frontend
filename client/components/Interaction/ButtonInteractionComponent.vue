@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'InteractionComponent',
+  name: 'ButtonInteractionComponent',
   props: {
     freet: {
       type: Object,
@@ -108,12 +108,6 @@ export default {
         this.request_noId(params);
       }
     },
-
-    // updateInteraction(interaction_type) {
-    //   this.deleteInteraction(); // need to first delete it and then add the new interaction
-    //   // just because of how I made my backend work unfortunately
-    //   // this.addInteraction(interaction_type);
-    // },  
 
     deleteInteraction() {
       this.checkExists();

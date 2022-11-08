@@ -16,7 +16,7 @@ const router = express.Router();
 /**
  * Get all the users you are following
  *
- * @name GET /api/following/following
+ * @name GET /api/following/following?userId=id
  *
  * @return {FollowingResponse[]} - A list of all the users you follow
  * @throws {403} if the user is not logged in
@@ -29,8 +29,8 @@ const router = express.Router();
         interactionValidator.isAuthorExists,
     ],
     async (req: Request, res: Response) => {
-      const userFollower = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
-      const user = await UserCollection.findOneByUserId(userFollower);
+      const userFollower = (req.query.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
+      const user = await UserCollection.findOneByUsername(userFollower);
       const allFollowing = await FollowingCollection.findFollowing(user.username as string);
       const response = allFollowing.map(util.constructFollowingResponse);
       res.status(200).json({
@@ -42,7 +42,7 @@ const router = express.Router();
 /**
  * Get all the users that are following you
  *
- * @name GET /api/following/followers
+ * @name GET /api/following/followers?userId=id
  *
  * @return {FollowingResponse[]} - A list of all the users following you
  */
@@ -53,8 +53,8 @@ const router = express.Router();
         interactionValidator.isAuthorExists,
     ],
     async (req: Request, res: Response) => {
-      const userFollower = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
-      const user = await UserCollection.findOneByUserId(userFollower);
+      const userFollower = (req.query.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
+      const user = await UserCollection.findOneByUsername(userFollower);
       const allFollowing = await FollowingCollection.findFollowers(user.username as string);
       const response = allFollowing.map(util.constructFollowingResponse);
       res.status(200).json({
