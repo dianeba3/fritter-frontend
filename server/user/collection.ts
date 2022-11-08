@@ -1,6 +1,10 @@
-import type {HydratedDocument, Types} from 'mongoose';
-import type {User} from './model';
-import UserModel from './model';
+import type { HydratedDocument, Types } from "mongoose";
+import type { User } from "./model";
+import UserModel from "./model";
+
+import type { Profile } from "../profile/model";
+import ProfileModel from "../profile/model";
+import ProfileCollection from "../profile/collection";
 
 /**
  * This file contains a class with functionality to interact with users stored
@@ -18,9 +22,18 @@ class UserCollection {
    * @param {string} password - The password of the user
    * @return {Promise<HydratedDocument<User>>} - The newly created user
    */
-  static async addOne(username: string, password: string): Promise<HydratedDocument<User>> {
+  static async addOne(
+    username: string,
+    password: string
+  ): Promise<HydratedDocument<User>> {
     const dateJoined = new Date();
-    const user = new UserModel({username, password, dateJoined});
+    const user = new UserModel({ username, password, dateJoined });
+    const profile = await ProfileCollection.addOne(
+      username,
+      "change default pic",
+      "change default bio"
+    );
+
     await user.save(); // Saves user to MongoDB
     return user;
   }
@@ -31,8 +44,10 @@ class UserCollection {
    * @param {string} userId - The userId of the user to find
    * @return {Promise<HydratedDocument<User>> | Promise<null>} - The user with the given username, if any
    */
-  static async findOneByUserId(userId: Types.ObjectId | string): Promise<HydratedDocument<User>> {
-    return UserModel.findOne({_id: userId});
+  static async findOneByUserId(
+    userId: Types.ObjectId | string
+  ): Promise<HydratedDocument<User>> {
+    return UserModel.findOne({ _id: userId });
   }
 
   /**
@@ -41,8 +56,12 @@ class UserCollection {
    * @param {string} username - The username of the user to find
    * @return {Promise<HydratedDocument<User>> | Promise<null>} - The user with the given username, if any
    */
-  static async findOneByUsername(username: string): Promise<HydratedDocument<User>> {
-    return UserModel.findOne({username: new RegExp(`^${username.trim()}$`, 'i')});
+  static async findOneByUsername(
+    username: string
+  ): Promise<HydratedDocument<User>> {
+    return UserModel.findOne({
+      username: new RegExp(`^${username.trim()}$`, "i"),
+    });
   }
 
   /**
@@ -52,10 +71,13 @@ class UserCollection {
    * @param {string} password - The password of the user to find
    * @return {Promise<HydratedDocument<User>> | Promise<null>} - The user with the given username, if any
    */
-  static async findOneByUsernameAndPassword(username: string, password: string): Promise<HydratedDocument<User>> {
+  static async findOneByUsernameAndPassword(
+    username: string,
+    password: string
+  ): Promise<HydratedDocument<User>> {
     return UserModel.findOne({
-      username: new RegExp(`^${username.trim()}$`, 'i'),
-      password
+      username: new RegExp(`^${username.trim()}$`, "i"),
+      password,
     });
   }
 
@@ -66,8 +88,11 @@ class UserCollection {
    * @param {Object} userDetails - An object with the user's updated credentials
    * @return {Promise<HydratedDocument<User>>} - The updated user
    */
-  static async updateOne(userId: Types.ObjectId | string, userDetails: {password?: string; username?: string}): Promise<HydratedDocument<User>> {
-    const user = await UserModel.findOne({_id: userId});
+  static async updateOne(
+    userId: Types.ObjectId | string,
+    userDetails: { password?: string; username?: string }
+  ): Promise<HydratedDocument<User>> {
+    const user = await UserModel.findOne({ _id: userId });
     if (userDetails.password) {
       user.password = userDetails.password;
     }
@@ -87,7 +112,7 @@ class UserCollection {
    * @return {Promise<Boolean>} - true if the user has been deleted, false otherwise
    */
   static async deleteOne(userId: Types.ObjectId | string): Promise<boolean> {
-    const user = await UserModel.deleteOne({_id: userId});
+    const user = await UserModel.deleteOne({ _id: userId });
     return user !== null;
   }
 }

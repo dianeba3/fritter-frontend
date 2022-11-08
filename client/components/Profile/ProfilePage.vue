@@ -9,6 +9,7 @@
     </section>
     <section>
         <h2>Profile for: {{ $store.state.username }}</h2>
+        <h2>{{this.profile_bio}}</h2>
     </section>
   </main>
 </template>
@@ -18,24 +19,34 @@
 
 export default {
     name: 'ProfilePage',
-
-    created() {
-    this.getProfilePic();
+    data() {
+      return {
+        profile_bio: String,
+        profile_pic: String,
+      };
     },
+    created() {
+
+    this.getProfile();
+    },
+
     methods: {
-        async getProfilePic(){
-        const url = `/api/profile?author=${this.$store.state.username}`;
-        try {
-        const r = await fetch(url);
-        const res = await r.json();
-        if(!r.ok) {
-            throw new Error (res.error);
-            }
-        this.contributions = res;
-        } catch (e) {
-        this.$set(this.alerts, e, 'error');
-            setTimeout(() => this.$delete(this.alerts, e), 3000);
-            }
+        async getProfile(){
+          const url = `/api/profile`;
+          try {
+          const r = await fetch(url);
+          const res = await r.json();
+          if(!r.ok) {
+              throw new Error (res.error);
+              }
+          this.profile_bio = res.bio;
+          this.profile_pic = res.pic;
+
+          console.log(res);
+          } catch (e) {
+          this.$set(this.alerts, e, 'error');
+              setTimeout(() => this.$delete(this.alerts, e), 3000);
+              }
         },
     }
 };

@@ -64,14 +64,19 @@
     >
       {{ freet.content }}
     </p>
+
+    <div class="line" > 
+      <InteractionComponent
+        v-if="!editing"
+        :freet="freet" 
+        />
+
+    </div > 
+
     <p class="info">
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
-    <InteractionComponent
-      v-if="!editing"
-      :freet="freet" 
-      />
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -237,5 +242,19 @@ header, header > * {
   color: #224414;
   text-decoration: none !important;
 
+}
+
+.line {
+  border: 1px solid;
+  padding: 6px;
+  border-color: #224414;
+  width: 100%;
+  margin: 0px;
+
+}
+
+.content {
+  padding-top: 0;
+  padding-bottom: 30px;
 }
 </style>

@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
     alerts: {}, // global success/error messages encountered during submissions to non-visible forms
-    interactions: [], //all interactions in the database
+    interactions: [], //all interactions in the database,
+    profiles: [], //all profiles in the database,
   },
   mutations: {
     alert(state, payload) {
@@ -63,7 +64,17 @@ const store = new Vuex.Store({
       const res = await fetch(url).then(async r => r.json());
       state.interactions = res;
     },
-  },
+
+    // async refreshProfiles(state) {
+    //   /**
+    //    * Request the server for the currently available interactions
+    //    * returns all interactions in database
+    //    */
+    //   const url = '/api/profile';
+    //   const res = await fetch(url).then(async r => r.json());
+    //   state.profiles = res;
+    // },
+},
 
   // Store data across page refreshes, only discard on browser close
   plugins: [createPersistedState()]

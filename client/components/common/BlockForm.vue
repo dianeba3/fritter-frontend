@@ -1,6 +1,5 @@
 <!-- Reusable component representing a form in a block style -->
 <!-- This is just an example; feel free to define any reusable components you want! -->
-
 <template>
   <form @submit.prevent="submit">
     <h3>{{ title }}</h3>
@@ -32,6 +31,7 @@
     </article>
     <button
       type="submit"
+      class="button"
     >
       {{ title }}
     </button>
