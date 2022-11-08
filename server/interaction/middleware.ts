@@ -193,7 +193,7 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
     if (req.body.type === 'dislike' || req.body.type === 'like'){
 
         const interactions = await InteractionModel.find({
-            userId: req.session.userId,
+            authorId: req.session.userId,
             freetId: req.body.freetId
         }).populate('authorId');
         const numInteractions = interactions.length;

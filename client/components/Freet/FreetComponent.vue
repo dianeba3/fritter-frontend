@@ -6,18 +6,26 @@
     class="freet"
   >
     <header>
-      <h3 class="author">
-        @{{ freet.author }}
-      </h3>
+      <section>
+      <header>
+        <div class="left">
+        <h3 v-if="freet.author === $store.state.username" class="author">
+          <router-link class="link-tab" to="/profile">
+            @{{ freet.author }}
+          </router-link>
+        </h3>
+        <h3 v-else class="author">
+          @{{ freet.author }}
+        </h3>
+        </div>
+      </header>
+      </section>
+
       <div
         v-if="$store.state.username === freet.author"
         class="actions"
       >
-       <InteractionComponent
-        v-if="!editing"
-        :freet="freet" 
-        />
-        
+
         <button class="btn"
           v-if="editing"
           @click="submitEdit"
@@ -30,15 +38,18 @@
         >
           Discard changes
         </button>
-        <button class="btn"
-          v-if="!editing"
-          @click="startEditing"
-        >
-          Edit
-        </button>
-        <button class="btn" @click="deleteFreet">
-          Delete
-        </button>
+        <div class="titles">
+          <button class="btn"
+            v-if="!editing"
+            @click="startEditing"
+          >
+            Edit
+          </button>
+          <button class="btn" @click="deleteFreet">
+            Delete
+          </button>
+        </div>
+        
       </div>
     </header>
     <textarea
@@ -57,6 +68,10 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
+    <InteractionComponent
+      v-if="!editing"
+      :freet="freet" 
+      />
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -65,6 +80,7 @@
       >
         <p>{{ alert }}</p>
       </article>
+    
     </section>
    
   </article>
@@ -178,7 +194,6 @@ export default {
 
 <style scoped>
 .freet {
-    border: 1px solid #224414;
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 14px;
@@ -188,7 +203,39 @@ export default {
     width:150%;
 }
 
+.left {
+	display: flex;
+	align-items: center;
+}
+
 .btn {
+  border: 2px solid #224414;
+  background-color: #c0c0c0;
   border-radius: 6px;
+  color: #224414;
+  margin-right: 5px;
+
+}
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header, header > * {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color:#224414
+}
+.titles {
+  margin-left: 0%;
+}
+
+.link-tab{
+  color: #224414;
+  text-decoration: none !important;
+
 }
 </style>

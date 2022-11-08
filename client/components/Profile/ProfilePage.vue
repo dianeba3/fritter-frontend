@@ -57,7 +57,9 @@ header, h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color:#224414
+    color:#224414;
+    text-transform: capitalize;
+
 }
 
 </style>

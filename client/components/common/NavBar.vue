@@ -5,12 +5,18 @@
 <template>
   <nav>
     <div class="left">
-      <img src="../../public/freet_logo.svg">
+      <img src="../../public/image.png">
       <router-link class="title" to="/home">
         Fritter
       </router-link>
     </div>
     <div class="right">
+      <router-link class="link-tab" class-active="router-link-active"
+        v-if="$store.state.username"
+        to="/home"
+      >
+        Home
+      </router-link>
       <router-link class="link-tab" class-active="router-link-active"
         v-if="$store.state.username"
         to="/profile"
@@ -23,11 +29,11 @@
       >
         Settings
       </router-link>
-      <router-link 
+      <router-link class="login-link"
         v-else
         to="/login"
       >
-        Login
+        Sign In
       </router-link>
     </div>
     <section class="alerts">
@@ -66,6 +72,10 @@ nav {
   text-decoration: none !important;
 }
 
+.login-link{
+  color: white;
+}
+
 .link-tab:hover{
   background-color: #306844;
   cursor: pointer;
@@ -79,7 +89,7 @@ nav {
 }
 
 img {
-    height: 32px;
+    height: 38px;
 }
 
 .left {
@@ -102,4 +112,5 @@ img {
 .alerts {
     width: 25%;
 }
+
 </style>

@@ -4,7 +4,13 @@
   <main >
     <section v-if="$store.state.username">
       <header>
-        <h2>Welcome @{{ $store.state.username }}</h2>
+        
+        <h2>Welcome</h2>
+        <h2>
+        <router-link class="profile" to="/profile">
+            @{{ $store.state.username }}
+        </router-link>
+        </h2>
       </header>
       <CreateFreetForm />
     </section>
@@ -14,7 +20,7 @@
       </header>
       <article>
         <h3>
-          <router-link to="/login">
+          <router-link class="link-tab"  to="/login">
             Sign in
           </router-link>
           to create, edit, and delete freets.
@@ -81,10 +87,21 @@ section {
 }
 
 header, header > * {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color:#224414
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color:#224414
+}
+
+.link-tab{
+  color: Blue;
+  margin-left: 10px;
+}
+
+.profile {
+  color:#224414;
+  margin-left: 10px;
+  text-transform: capitalize
 }
 
 .titles {

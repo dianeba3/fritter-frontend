@@ -50,7 +50,7 @@ const router = express.Router();
       res.status(200).json(response);
     },
     [
-      userValidator.isUserLoggedIn,
+      // userValidator.isUserLoggedIn,
       interactionValidator.isFreetExistsQuery
     ],
     async (req: Request, res: Response) => {
