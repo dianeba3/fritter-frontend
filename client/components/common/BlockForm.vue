@@ -117,18 +117,31 @@ export default {
 
 <style scoped>
 form {
-  border: 1px solid #111;
+  border: 1px solid #224414;
+  background-color: #33691e;
+  color: white;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 14px;
   position: relative;
+  width: 50%;
+  border-radius: 15px;
+}
+
+button {
+  background-color: #224414;
+  color: white;
+  width: 20%;
+  border-radius: 8px;
+
 }
 
 article > div {
   display: flex;
   flex-direction: column;
+  
 }
 
 form > article p {

@@ -30,3 +30,21 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+header, header > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color:#224414
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+</style>

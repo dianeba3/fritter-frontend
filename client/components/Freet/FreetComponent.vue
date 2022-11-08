@@ -13,26 +13,31 @@
         v-if="$store.state.username === freet.author"
         class="actions"
       >
-        <button
+       <InteractionComponent
+        v-if="!editing"
+        :freet="freet" 
+        />
+        
+        <button class="btn"
           v-if="editing"
           @click="submitEdit"
         >
-          ✅ Save changes
+          Save changes
         </button>
-        <button
+        <button class="btn"
           v-if="editing"
           @click="stopEditing"
         >
-          🚫 Discard changes
+          Discard changes
         </button>
-        <button
+        <button class="btn"
           v-if="!editing"
           @click="startEditing"
         >
-          ✏️ Edit
+          Edit
         </button>
-        <button @click="deleteFreet">
-          🗑️ Delete
+        <button class="btn" @click="deleteFreet">
+          Delete
         </button>
       </div>
     </header>
@@ -61,12 +66,17 @@
         <p>{{ alert }}</p>
       </article>
     </section>
+   
   </article>
 </template>
 
 <script>
+
+import InteractionComponent from '@/components/Interaction/InteractionComponent.vue';
+
 export default {
   name: 'FreetComponent',
+  components: {InteractionComponent},
   props: {
     // Data from the stored freet
     freet: {
@@ -168,8 +178,17 @@ export default {
 
 <style scoped>
 .freet {
-    border: 1px solid #111;
+    border: 1px solid #224414;
     padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 14px;
     position: relative;
+    background-color: #f1f8e9;
+    color: #224414;
+    width:150%;
+}
+
+.btn {
+  border-radius: 6px;
 }
 </style>

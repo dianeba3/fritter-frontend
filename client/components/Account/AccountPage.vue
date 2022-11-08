@@ -36,3 +36,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #224414;
+}
+
+</style>
+

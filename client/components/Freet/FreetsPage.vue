@@ -1,7 +1,7 @@
 <!-- Default page that also displays freets -->
 
 <template>
-  <main>
+  <main >
     <section v-if="$store.state.username">
       <header>
         <h2>Welcome @{{ $store.state.username }}</h2>
@@ -31,7 +31,7 @@
             </span>
           </h2>
         </div>
-        <div class="right">
+        <div class="titles">
           <GetFreetsForm
             ref="getFreetsForm"
             value="author"
@@ -76,16 +76,24 @@ export default {
 section {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 header, header > * {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color:#224414
+}
+
+.titles {
+  padding-left: 50px;
 }
 
 button {
-    margin-right: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 section .scrollbox {

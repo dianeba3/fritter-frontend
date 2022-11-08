@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" >
     <header>
       <NavBar />
     </header>
@@ -40,6 +40,7 @@ body {
   padding: 0;
   margin: 0;
   font-size: 1.2em;
+  background-color:#dcedc8;
 }
 
 main {

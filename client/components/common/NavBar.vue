@@ -5,22 +5,25 @@
 <template>
   <nav>
     <div class="left">
-      <img src="../../public/logo.svg">
-      <h1 class="title">
+      <img src="../../public/freet_logo.svg">
+      <router-link class="title" to="/home">
         Fritter
-      </h1>
+      </router-link>
     </div>
     <div class="right">
-      <router-link to="/">
-        Home
+      <router-link class="link-tab" class-active="router-link-active"
+        v-if="$store.state.username"
+        to="/profile"
+      >
+        Profile
       </router-link>
-      <router-link
+      <router-link class="link-tab" class-active="router-link-active"
         v-if="$store.state.username"
         to="/account"
       >
-        Account
+        Settings
       </router-link>
-      <router-link
+      <router-link 
         v-else
         to="/login"
       >
@@ -42,16 +45,37 @@
 <style scoped>
 nav {
     padding: 1vw 2vw;
-    background-color: #ccc;
+    color: white;
+    background-color: #224414;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
 }
 
+.router-link{
+    text-decoration: none !important;
+}
+
+.router-link-active{
+  color: #689f38 !important;
+}
+
+.link-tab{
+  color: white;
+  text-decoration: none !important;
+}
+
+.link-tab:hover{
+  background-color: #306844;
+  cursor: pointer;
+}
+
 .title {
+    color: white !important;
     font-size: 32px;
     margin: 0 5px;
+    text-decoration: none !important;
 }
 
 img {
