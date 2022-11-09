@@ -17,10 +17,9 @@ export default {
       ],
       title: 'Delete Following',
       callback: () => {
-        this.$router.push({name: 'Profile'}); 
-        this.$store.commit('alert', {
-          message: 'Your following has been deleted!', status: 'success'
-        });
+        const message = 'Successfully unfollowed a user!';
+        this.$set(this.alerts, message, 'success');
+        setTimeout(() => this.$delete(this.alerts, message), 3000);
       }
     };
   }

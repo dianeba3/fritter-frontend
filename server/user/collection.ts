@@ -28,12 +28,6 @@ class UserCollection {
   ): Promise<HydratedDocument<User>> {
     const dateJoined = new Date();
     const user = new UserModel({ username, password, dateJoined });
-    const profile = await ProfileCollection.addOne(
-      username,
-      "change default pic",
-      "change default bio"
-    );
-
     await user.save(); // Saves user to MongoDB
     return user;
   }

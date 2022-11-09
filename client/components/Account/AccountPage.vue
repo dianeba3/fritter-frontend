@@ -7,7 +7,7 @@
       <header>
         <h2>Profile settings for @{{ $store.state.username }}</h2>
       </header>
-      <NewProfileForm />
+      <!-- <NewProfileForm /> -->
       <NewProfileBioForm />
       <NewProfilePicForm />
       <header>
@@ -23,7 +23,7 @@
         <h2>Follower Barrier settings</h2>
     </header>
     <CreateFBForm />
-    <ChangePasscodeForm />
+    <ChangePasscode />
     <DeleteFBForm />
     
     </section>
@@ -48,7 +48,7 @@ import NewProfileBioForm from '@/components/Profile/NewProfileBioForm.vue';
 import NewProfilePicForm from '@/components/Profile/NewProfilePicForm.vue';
 import CreateFBForm from '@/components/FollowerBarrier/CreateFBForm.vue';
 import DeleteFBForm from '@/components/FollowerBarrier/DeleteFBForm.vue';
-import ChangePasscodeForm from '@/components/FollowerBarrier/ChangePasscodeForm.vue';
+import ChangePasscode from '@/components/FollowerBarrier/ChangePasscode.vue';
 
 export default {
   name: 'AccountPage',
@@ -62,7 +62,7 @@ export default {
     LogoutForm,
     CreateFBForm,
     DeleteFBForm,
-    ChangePasscodeForm
+    ChangePasscode
   }
 };
 </script>

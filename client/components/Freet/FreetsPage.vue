@@ -55,9 +55,7 @@
           :freet="freet"
         />
       </section>
-      <article
-        v-else
-      >
+      <article v-else>
         <h3>No freets found.</h3>
       </article>
     </section>

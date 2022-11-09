@@ -56,7 +56,7 @@ const isFreetExistsBody = async (req: Request, res: Response, next: NextFunction
     const user = await UserCollection.findOneByUserId(req.session.userId as string);
     if (!user) {
       res.status(404).json({
-        error: `A user with username ${req.session.userId as string} does not exist.`
+        error: `A user with this username does not exist.`
       });
       return;
     }
@@ -72,7 +72,7 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
     const userId = freet.authorId._id;
     if (req.session.userId !== userId.toString()) {
       res.status(403).json({
-        error: 'Cannot modify other users\' freets.'
+        error: 'Cannot modify other users freets'
       });
       return;
     }
@@ -89,7 +89,7 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
   const userId = freet.authorId._id;
   if (req.session.userId !== userId.toString()) {
     res.status(403).json({
-      error: 'Cannot modify other users\' replies.'
+      error: 'Cannot modify other users replies.'
     });
     return;
   }
@@ -178,7 +178,7 @@ const isValidFreetModifier = async (req: Request, res: Response, next: NextFunct
     const userId = interaction.authorId._id;
     if (req.session.userId !== userId.toString()) {
       res.status(403).json({
-        error: 'Cannot modify other users\' interactions.'
+        error: 'Cannot modify other users interactions.'
       });
       return;
     }

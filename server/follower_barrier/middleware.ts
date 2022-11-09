@@ -4,7 +4,6 @@ import UserCollection from '../user/collection';
 import FollowerBarrierCollection from './collection';
 import FollowerBarrierModel from './model';
 
-
 /**
  * Checks if a passcode in req.body is valid, that is, at 6-50 characters long without any spaces
  */
@@ -14,9 +13,7 @@ const isValidPasscode = async (req: Request, res: Response, next: NextFunction) 
 
     if (!passcodeRegex.test(req.body.passcode)) {
         res.status(400).json({
-            error: {
-                password: 'Passcode must be a nonempty string.'
-            }
+            error: 'Passcode must be a nonempty string.'
         });
         return;
     }
@@ -40,9 +37,7 @@ const isValidPasscode = async (req: Request, res: Response, next: NextFunction) 
     const followerBarrier = await FollowerBarrierModel.find({username: user.username});
     if (followerBarrier.length >= 1) { //one already exists
         res.status(403).json({
-            error: {
-                password: 'You already have a Follower Barrier'
-            }
+            error: 'You already have a Follower Barrier'
         });
         return;
     }
@@ -56,12 +51,11 @@ const isValidPasscode = async (req: Request, res: Response, next: NextFunction) 
  const doesAlreadyExist = async (req: Request, res: Response, next: NextFunction) => {
     const user_Id = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
     const user = await UserCollection.findOneByUserId(user_Id);
+    console.log(user);
     const followerBarrier = await FollowerBarrierModel.find({username: user.username});
     if (followerBarrier.length === 0) { 
         res.status(403).json({
-            error: {
-                password: 'You do not have a Follower Barrier to delete'
-            }
+            error: 'You do not have a Follower Barrier to delete'
         });
         return;
     }

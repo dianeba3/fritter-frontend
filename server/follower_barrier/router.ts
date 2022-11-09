@@ -48,7 +48,7 @@ const router = express.Router();
 /**
  * Update a user's follower barrier passcode
  *
- * @name PUT /api/follower_barrier
+ * @name PUT /api/followerBarrier
  *
  * @param {string} passcode - The user's new password
  * @return {FollowerBarrierResponse} - The updated user
@@ -68,9 +68,8 @@ const router = express.Router();
     ],
     async (req: Request, res: Response) => {
         const userFollower = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
-        const user = await UserCollection.findOneByUsername(userFollower);      
-        console.log("hello");
-        const newFollowerBarrier = await FollowerBarrierCollection.updateOne(user.username, req.query.passcode as string);
+        const user = await UserCollection.findOneByUserId(userFollower);      
+        const newFollowerBarrier = await FollowerBarrierCollection.updateOne(user.username, req.body.passcode as string);
         
         res.status(200).json({
             message: "Your follower barrier passcode was updated successfully.",

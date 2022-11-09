@@ -6,7 +6,8 @@ import * as userValidator from '../user/middleware';
 import * as util from './util';
 import InteractionCollection from "../interaction/collection";
 import ProfileCollection from "../profile/collection";
-
+import FollowerBarrierCollection from '../follower_barrier/collection';
+import FollowingCollection from '../following/collection';
 
 const router = express.Router();
 
@@ -110,6 +111,8 @@ router.post(
   ],
   async (req: Request, res: Response) => {
     const user = await UserCollection.addOne(req.body.username, req.body.password);
+    console.log(req.body.username);
+    const profile = await ProfileCollection.addOne(user._id.toString(), "change picture in settings", "change bio in settings");
     req.session.userId = user._id.toString();
     res.status(201).json({
       message: `Your account was created successfully. You have been logged in as ${user.username}`,
@@ -164,11 +167,14 @@ router.delete(
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
     const freets = await FreetCollection.findAllByUserId(userId);
-    // delete following and following barrier !!!!
+     
     for (let i=0; i<freets.length; i++){
       await InteractionCollection.deleteMany(freets[i]._id);
     }
     await UserCollection.deleteOne(userId);
+    await FollowerBarrierCollection.deleteOne(userId);
+    await FollowingCollection.deleteManyFollowing(userId);
+    await FollowingCollection.deleteManyUser(userId);
     await FreetCollection.deleteMany(userId);
     await ProfileCollection.deleteOne(userId);
     req.session.userId = undefined;

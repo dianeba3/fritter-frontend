@@ -1,20 +1,18 @@
-
 <script>
 import BlockForm from '@/components/common/BlockForm.vue';
 
 export default {
-  name: 'ChangePasscodeForm',
+  name: 'ChangePasscode',
   mixins: [BlockForm],
   data() {
     return {
-      url: '/api/follower_barrier',
+      url: '/api/followerBarrier',
       method: 'PUT',
       hasBody: true,
-      setUsername: false,
       fields: [
-        {id: 'passcode', label: 'New Passcode', value: ''}
+        {id: 'passcode', label: 'Passcode', value: ''}
       ],
-      title: 'Change Follower Barrier Passcode',
+      title: 'Change passcode',
       callback: () => {
         const message = 'Successfully changed passcode!';
         this.$set(this.alerts, message, 'success');

@@ -109,8 +109,9 @@ const router = express.Router();
 /**
  * Delete a following
  *
- * @name DELETE /api/following/:following
+ * @name DELETE /api/following
  *
+ * @param {string} following - The user to unfollow
  * @return {string} - A success message
  * @throws {403} - If the user is not logged in 
  * @throws {403} if the user does not already follow `follower`
@@ -118,18 +119,18 @@ const router = express.Router();
  * @throws {404} if follower/user is not a recognized username of any user
  */
  router.delete(
-    '/:following?',
+    '/',
     [
       userValidator.isUserLoggedIn,
-      followingValidator.followerNotSameAsUserParams,
+      followingValidator.followerNotSameAsUser,
       interactionValidator.isAuthorExists,
-      followingValidator.isUserExistsParams,
-      followingValidator.isAlreadyFollowedToUnfollowParams,
+      followingValidator.isUserExistsBody,
+      followingValidator.isAlreadyFollowedToUnfollow,
     ],
     async (req: Request, res: Response) => {
       const user_id = (req.session.userId as string) ?? ""; // Will not be an empty string since its validated in isUserLoggedIn
       const user = await UserCollection.findOneByUserId(user_id);
-      const unfollow = req.params.following as string;
+      const unfollow = req.body.following as string;
 
       await FollowingCollection.deleteOne(user.username as string, unfollow);
       res.status(200).json({

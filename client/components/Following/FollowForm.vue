@@ -12,7 +12,7 @@ export default {
       setUsername: false,
       fields: [
         {id: 'following', label: 'Follow', value: ''},
-        {id: 'passcode', label: 'Passcode if you have a follower barrier', value: ''},
+        {id: 'passcode', label: 'Passcode if you have a follower ', value: ''},
       ],
       title: 'Create Following',
       callback: () => {

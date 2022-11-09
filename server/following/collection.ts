@@ -71,31 +71,27 @@ import * as util from "./util";
         return follow !== null;
     }
 
-    // /**
-    //  * Delete a following - user is unfollowing `follower`.
-    //  *
-    //  * @param {string} username - The username of the following
-    //  * @param {string} unfollow - The following
-    //  * @return {Promise<Boolean>} - true if the following has been deleted, false otherwise
-    //  */
-    //  static async deleteManyUser(user: string, unfollow: string): Promise<boolean> {
-    //     await FreetModel.deleteMany({authorId});
-    //     const follow = await FollowingModel.deleteOne({username: user, following: unfollow});
-    //     return follow !== null;
-    // }
+    /**
+     * Delete all following with username as username
+     *
+     * @param {string} username - The username of the following
+     * @return {Promise<void>} - true if the following has been deleted, false otherwise
+     */
+     static async deleteManyUser(user: string): Promise<void> {
+        await FollowingModel.deleteMany({username: user});
+        
+    }
 
-    // /**
-    //  * Delete a following - user is unfollowing `follower`.
-    //  *
-    //  * @param {string} username - The username of the following
-    //  * @param {string} unfollow - The following
-    //  * @return {Promise<Boolean>} - true if the following has been deleted, false otherwise
-    //  */
-    //  static async deleteManyFollowing(user: string, unfollow: string): Promise<boolean> {
-    //     await FreetModel.deleteMany({authorId});
-    //     const follow = await FollowingModel.deleteOne({username: user, following: unfollow});
-    //     return follow !== null;
-    // }
+    /**
+     * Delete all followings with following as following
+     *
+     * @param {string} following - The following
+     * @return {Promise<void>} - true if the following has been deleted, false otherwise
+     */
+     static async deleteManyFollowing(following: string): Promise<void> {
+        await FollowingModel.deleteMany({following: following});
+        
+    }
 
 }
 

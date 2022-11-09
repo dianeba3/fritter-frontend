@@ -16,6 +16,9 @@
   
   <div class="flex-container" >
     <div class="flex-child">
+      <div class="block">
+      <CreateFreetForm />
+      </div>
       <h1> Freets By You </h1>
       <div class="freets"
         v-if="this.freets.length">
@@ -47,6 +50,7 @@ import GetFreetsForm from '@/components/Freet/GetFreetsForm.vue';
 import UserListComponent from '@/components/Following/UserListComponent.vue';
 import FollowForm from '@/components/Following/FollowForm.vue';
 import DeleteFollowForm from '@/components/Following/DeleteFollowForm.vue';
+
 
 export default {
   name: 'ProfileComponent',
@@ -222,6 +226,10 @@ header, h2, h1 {
 .freets{
   margin-left: 5%;
   width: 60%
+}
+
+.block{
+  width:200%;
 }
 
 </style>
